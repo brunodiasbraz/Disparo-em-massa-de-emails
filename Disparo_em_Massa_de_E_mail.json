@@ -1,0 +1,214 @@
+{
+  "name": "Disparo em Massa de E-mail",
+  "nodes": [
+    {
+      "parameters": {
+        "amount": 10,
+        "unit": "seconds"
+      },
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        360,
+        740
+      ],
+      "webhookId": "19a8ac07-3843-4367-8876-b7590c65c425",
+      "id": "fff4975e-fc16-4283-8980-4486d71dceb8"
+    },
+    {
+      "parameters": {},
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "position": [
+        220,
+        1220
+      ],
+      "typeVersion": 1,
+      "id": "0d098af9-e644-4029-b58f-135b3ece6639",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "batchSize": 2,
+        "options": {}
+      },
+      "id": "580d76b2-e759-4ddf-828b-6ac7321c867d",
+      "name": "Split In Batches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        20,
+        800
+      ],
+      "alwaysOutputData": true,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "5822fdd7-eae9-45aa-adbd-be5563af043c",
+        "options": {
+          "rawBody": true
+        }
+      },
+      "id": "7f549a50-8790-4e60-ad81-1341e88d0e97",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -460,
+        800
+      ],
+      "webhookId": "5822fdd7-eae9-45aa-adbd-be5563af043c"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "sheetId": "15dzZyRfHW2RKP9nruuSLILmR3alECu8ug8JxFQ5piig",
+        "range": "A:G",
+        "options": {
+          "valueRenderMode": "FORMATTED_VALUE"
+        }
+      },
+      "name": "Planilha BãoBurgão",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [
+        -280,
+        800
+      ],
+      "id": "2fbc8a86-9af0-42e6-91e0-a15e6102aa4b",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "brunobraz@cercred.com.br",
+        "toEmail": "onurb.braz@gmail.com",
+        "subject": "Teste email Profissional",
+        "text": "Olá, teste!",
+        "options": {}
+      },
+      "id": "25d7a2c7-6c47-4d27-9528-2020dc5bcb6c",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [
+        400,
+        1220
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "4",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "baoburgao@gmail.com",
+        "toEmail": "= {{ $json.Email }}",
+        "subject": "={{ $node.Webhook.json.body.additional_attributes.mail_subject }}",
+        "emailFormat": "html",
+        "html": "={{ $node.Webhook.json.body.messages[0].content }} ",
+        "options": {}
+      },
+      "id": "14b7a44f-137d-4848-9ad6-7a8645a6d5bb",
+      "name": "Send Email1",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [
+        580,
+        880
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "4",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Send Email1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split In Batches": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Planilha BãoBurgão",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Planilha BãoBurgão": {
+      "main": [
+        [
+          {
+            "node": "Split In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email1": {
+      "main": [
+        [
+          {
+            "node": "Split In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "versionId": "34ac2376-1e07-4987-84f4-d2361174760c",
+  "id": "2",
+  "meta": {
+    "instanceId": "1fe98c299b971a7079b9db95fbeeba6cbda6e3d96bd81b2b3e802bd6130b3324"
+  },
+  "tags": []
+}
