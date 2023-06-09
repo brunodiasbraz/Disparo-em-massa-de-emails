@@ -71,7 +71,7 @@
           "valueRenderMode": "FORMATTED_VALUE"
         }
       },
-      "name": "Planilha BãoBurgão",
+      "name": "Planilha",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 1,
       "position": [
@@ -88,9 +88,9 @@
     },
     {
       "parameters": {
-        "fromEmail": "brunobraz@cercred.com.br",
-        "toEmail": "onurb.braz@gmail.com",
-        "subject": "Teste email Profissional",
+        "fromEmail": "seuemail@mail.com.br",
+        "toEmail": "destinatário@mail.com",
+        "subject": "Teste email",
         "text": "Olá, teste!",
         "options": {}
       },
@@ -111,7 +111,7 @@
     },
     {
       "parameters": {
-        "fromEmail": "baoburgao@gmail.com",
+        "fromEmail": "seuemail@mail.com.br",
         "toEmail": "= {{ $json.Email }}",
         "subject": "={{ $node.Webhook.json.body.additional_attributes.mail_subject }}",
         "emailFormat": "html",
