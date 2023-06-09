@@ -1,5 +1,5 @@
 {
-  "name": "Disparo em Massa de E-mail",
+  "name": "My workflow 2",
   "nodes": [
     {
       "parameters": {
@@ -10,22 +10,22 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1,
       "position": [
-        360,
-        740
+        -800,
+        820
       ],
       "webhookId": "19a8ac07-3843-4367-8876-b7590c65c425",
-      "id": "fff4975e-fc16-4283-8980-4486d71dceb8"
+      "id": "e77705e7-d909-4bd8-949e-3c5df64ab215"
     },
     {
       "parameters": {},
       "name": "Error Trigger",
       "type": "n8n-nodes-base.errorTrigger",
       "position": [
-        220,
-        1220
+        -920,
+        1260
       ],
       "typeVersion": 1,
-      "id": "0d098af9-e644-4029-b58f-135b3ece6639",
+      "id": "fd69760c-d4bb-4f17-8259-8e45bb706ed9",
       "disabled": true
     },
     {
@@ -33,16 +33,15 @@
         "batchSize": 2,
         "options": {}
       },
-      "id": "580d76b2-e759-4ddf-828b-6ac7321c867d",
+      "id": "a7c9daf9-b27f-4016-ace4-edf99fda1d4d",
       "name": "Split In Batches",
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 2,
       "position": [
-        20,
-        800
+        -1120,
+        840
       ],
-      "alwaysOutputData": true,
-      "disabled": true
+      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -52,13 +51,13 @@
           "rawBody": true
         }
       },
-      "id": "7f549a50-8790-4e60-ad81-1341e88d0e97",
+      "id": "7c5dbe7d-8879-477f-82b0-355d0dcdbec2",
       "name": "Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        -460,
-        800
+        -1600,
+        840
       ],
       "webhookId": "5822fdd7-eae9-45aa-adbd-be5563af043c"
     },
@@ -75,10 +74,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 1,
       "position": [
-        -280,
-        800
+        -1420,
+        840
       ],
-      "id": "2fbc8a86-9af0-42e6-91e0-a15e6102aa4b",
+      "id": "c34b084c-8749-4742-8b07-c3ca2a2ffe70",
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "3",
@@ -94,13 +93,13 @@
         "text": "Olá, teste!",
         "options": {}
       },
-      "id": "25d7a2c7-6c47-4d27-9528-2020dc5bcb6c",
+      "id": "115b46af-c6c4-4bf3-a84a-c46d10fecca4",
       "name": "Send Email",
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2,
       "position": [
-        400,
-        1220
+        -740,
+        1260
       ],
       "credentials": {
         "smtp": {
@@ -118,13 +117,13 @@
         "html": "={{ $node.Webhook.json.body.messages[0].content }} ",
         "options": {}
       },
-      "id": "14b7a44f-137d-4848-9ad6-7a8645a6d5bb",
+      "id": "acb9f8a3-faa2-4bc8-bd73-86c6fd4b3fe1",
       "name": "Send Email1",
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2,
       "position": [
-        580,
-        880
+        -560,
+        920
       ],
       "credentials": {
         "smtp": {
@@ -169,18 +168,7 @@
         ]
       ]
     },
-    "Webhook": {
-      "main": [
-        [
-          {
-            "node": "Planilha BãoBurgão",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Planilha BãoBurgão": {
+    "Send Email1": {
       "main": [
         [
           {
@@ -191,7 +179,7 @@
         ]
       ]
     },
-    "Send Email1": {
+    "Planilha": {
       "main": [
         [
           {
@@ -203,10 +191,10 @@
       ]
     }
   },
-  "active": true,
+  "active": false,
   "settings": {},
-  "versionId": "34ac2376-1e07-4987-84f4-d2361174760c",
-  "id": "2",
+  "versionId": "70792482-178e-45cc-815c-aece2809009e",
+  "id": "18",
   "meta": {
     "instanceId": "1fe98c299b971a7079b9db95fbeeba6cbda6e3d96bd81b2b3e802bd6130b3324"
   },
